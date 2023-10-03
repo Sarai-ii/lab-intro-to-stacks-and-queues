@@ -7,7 +7,6 @@ class Node {
     this.next = null
   }
 } 
-
 class Stack {
   constructor () {
     this.top = null
@@ -23,7 +22,7 @@ class Stack {
   pop () {
     let usedBox = this.top //  peaches oranges
     this.top = this.top.next //oranges
-    return usedBox //peaches
+    return usedBox //peaches node
   }
   size () {
     let bodies = 0
@@ -53,6 +52,19 @@ class Stack {
     }
     return min
   }
+  sort() {
+    const maxStack = new Stack()
+    while(!this.isEmpty()) {
+      let temp = this.pop()
+      while(!maxStack.isEmpty() && maxStack.peek().data > temp.data){
+        this.push(maxStack.pop().data)
+      }    
+      maxStack.push(temp.data)
+    }
+    while(!maxStack.isEmpty()){
+      this.push(maxStack.pop().data)
+    }
+  }
 }
 
 //QUEUE
@@ -65,7 +77,6 @@ class Queue {
     //the highest value in the queue
     this.max = -Infinity
   }
-
   enqueue (data) {
     let mschfDrop = new Node(data)
     if(this.size === 0){
@@ -80,7 +91,6 @@ class Queue {
       this.max = data
     }
   }
-  
   dequeue () {
     if(this.size === 0){return null} 
 
@@ -94,27 +104,21 @@ class Queue {
     //   this.max = done
     // } 
   }
-
   count () {
     return this.size
   }
-
   isEmpty() {
     return !this.size
   }
-
   peek() {
     return this.first
   }
-
   getLast () {
     return this.last
   }
-  
   findMax() {
     return this.max
   }
-
 }
 
 module.exports = {
